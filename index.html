@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hangman</title>
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main>
+      <div class="container">
+        <h1 class="title">Hangman</h1>
+        <div class="wrapper">
+          <svg height="400px" width="400px">
+            <line x1="40" y1="340" x2="160" y2="340"></line>
+            <line x1="80" y1="340" x2="80" y2="40"></line>
+            <line x1="60" y1="40" x2="320" y2="40"></line>
+            <line x1="80" y1="90" x2="130" y2="40"></line>
+            <line x1="300" y1="40" x2="300" y2="90"></line>
+
+            <circle
+              cx="300"
+              cy="120"
+              r="30"
+              style="fill: transparent"
+              class="human hidden"
+            ></circle>
+            <line
+              x1="300"
+              y1="150"
+              x2="300"
+              y2="230"
+              class="human hidden"
+            ></line>
+            <line
+              x1="300"
+              y1="170"
+              x2="260"
+              y2="200"
+              class="human hidden"
+            ></line>
+            <line
+              x1="300"
+              y1="170"
+              x2="340"
+              y2="200"
+              class="human hidden"
+            ></line>
+            <line
+              x1="300"
+              y1="230"
+              x2="260"
+              y2="300"
+              class="human hidden"
+            ></line>
+            <line
+              x1="300"
+              y1="230"
+              x2="340"
+              y2="300"
+              class="human hidden"
+            ></line>
+          </svg>
+          <div class="info">
+            <div class="score-wrapper">
+              Score
+              <span class="score">0</span>
+            </div>
+            <div class="wrong">
+              <h2 class="wrong__title">Wrong letters</h2>
+              <span class="wrong__letters"></span>
+            </div>
+          </div>
+        </div>
+        <div class="word"></div>
+        <div class="axe">
+          <span class="axe__text">Похоже, это вообще не буква</span>
+          <img src="img/axe.svg" alt="" />
+        </div>
+      </div>
+      <div class="alert">
+        <h2>Sorry, but this screen width is not supported.</h2>
+      </div>
+    </main>
+    <script src="js/script.js"></script>
+  </body>
+</html>
