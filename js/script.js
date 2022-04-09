@@ -1,11 +1,10 @@
 let words = ["addiction", "life", "music", "family", "autumn"];
-// let words = ["addictionAddiфф"];
-let wordEl = document.querySelector(".word");
+
+let wordEl = document.querySelector("#word");
 const axeEl = document.querySelector("#axe");
 const axeTextEl = document.querySelector("#axe__text");
-const hideAlertBtn = document.querySelector("#hideAlert");
 const alertEl = document.querySelector("#alert");
-
+const hideAlertBtn = document.querySelector("#hideAlert");
 
 let score = 0;
 let amountRightLetters = 0;
@@ -34,6 +33,7 @@ function loadNewWord() {
   wrongLettersEl.innerHTML = "";
   wordEl.innerHTML = "";
   amountRightLetters = 0;
+
   // choose random word
   currentWord = words[Math.floor(Math.random() * words.length)].split("");
   currentWord.forEach(() => {
@@ -64,9 +64,7 @@ function setScore(score) {
 }
 
 document.addEventListener("keydown", (e) => {
-  // Если нажата клавиша с буквой
   if (e.code.slice(0, -1) == "Key") {
-    // Если нажатая буква верная
     if (currentWord.indexOf(e.key) !== -1 && wordEl.textContent.indexOf(e.key) === -1) {
       let arr = [];
       currentWord.forEach((el, i) => {
@@ -77,7 +75,6 @@ document.addEventListener("keydown", (e) => {
         amountRightLetters++;
         wordEl.children[el].innerHTML = e.key;
       });
-      // Если введены все буквы в слово
       if (currentWord.length == amountRightLetters) {
         loadNewWord();
         setScore(++score);
@@ -88,7 +85,6 @@ document.addEventListener("keydown", (e) => {
       showAxe("This letter has already been guessed");
     }
   }
-  // Если нажата клавиша не с буквой
   else {
     showAxe("It's not even a letter");
   }
