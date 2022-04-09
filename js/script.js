@@ -1,5 +1,5 @@
-// let words = ["addiction", "life", "music", "family", "autumn"];
-let words = ["addictionAddiфф"];
+let words = ["addiction", "life", "music", "family", "autumn"];
+// let words = ["addictionAddiфф"];
 let wordEl = document.querySelector(".word");
 const axeEl = document.querySelector("#axe");
 const axeTextEl = document.querySelector("#axe__text");
@@ -93,6 +93,6 @@ function showAxe(text) {
     axeEl.classList.add("active");
     setTimeout(() => {
       axeEl.classList.remove("active");
-    }, 100000);
+    }, 2000);
   }
 }
