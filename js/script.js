@@ -3,6 +3,9 @@ let words = ["addiction", "life", "music", "family", "autumn"];
 let wordEl = document.querySelector(".word");
 const axeEl = document.querySelector("#axe");
 const axeTextEl = document.querySelector("#axe__text");
+const hideAlertBtn = document.querySelector("#hideAlert");
+const alertEl = document.querySelector("#alert");
+
 
 let score = 0;
 let amountRightLetters = 0;
@@ -13,14 +16,18 @@ let wrongLettersEl = document.querySelector(".wrong__letters");
 document.addEventListener("DOMContentLoaded", () => {
   loadNewWord();
   if (document.documentElement.clientWidth <= 768) {
-    document.querySelector(".alert").classList.add("active");
+    alertEl.classList.add("active");
   }
 });
 
 window.addEventListener("resize", () => {
   if (document.documentElement.clientWidth <= 768) {
-    document.querySelector(".alert").classList.add("active");
-  } else document.querySelector(".alert").classList.remove("active");
+    alertEl.classList.add("active");
+  } else alertEl.classList.remove("active");
+});
+
+hideAlertBtn.addEventListener('click', () => {
+  alertEl.classList.remove("active");
 });
 
 function loadNewWord() {
