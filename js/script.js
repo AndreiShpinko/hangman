@@ -1,34 +1,34 @@
+// let words = ["addiction", "life", "music", "family", "autumn"];
+let words = ["addictionAddiфф"];
 let wordEl = document.querySelector(".word");
-
-let currentWord;
-let numCorrectLetters = 0;
-let wrongLettersEl = document.querySelector(".wrong__letters");
-
-let words = ["addiction", "life", "music", "family", "autumn"];
+const axeEl = document.querySelector("#axe");
+const axeTextEl = document.querySelector("#axe__text");
 
 let score = 0;
+let amountRightLetters = 0;
 
+let currentWord;
+let wrongLettersEl = document.querySelector(".wrong__letters");
 
 document.addEventListener("DOMContentLoaded", () => {
-  reloadAndStart();
+  loadNewWord();
   if (document.documentElement.clientWidth <= 768) {
-    document.querySelector('.alert').classList.add('active');
+    document.querySelector(".alert").classList.add("active");
   }
 });
 
-window.addEventListener('resize', () => {
+window.addEventListener("resize", () => {
   if (document.documentElement.clientWidth <= 768) {
-    document.querySelector('.alert').classList.add('active');
-  }
-  else document.querySelector('.alert').classList.remove('active');
+    document.querySelector(".alert").classList.add("active");
+  } else document.querySelector(".alert").classList.remove("active");
 });
 
-function reloadAndStart() {
+function loadNewWord() {
   wrongLettersEl.innerHTML = "";
-  numCorrectLetters = 0;
-  let randomNumber = Math.floor(Math.random() * words.length);
-  currentWord = words[randomNumber].split("");
   wordEl.innerHTML = "";
+  amountRightLetters = 0;
+  // choose random word
+  currentWord = words[Math.floor(Math.random() * words.length)].split("");
   currentWord.forEach(() => {
     wordEl.innerHTML += '<span class="word__letter"></span>';
   });
@@ -37,60 +37,62 @@ function reloadAndStart() {
   });
 }
 
-function wrongLetter(letter) {
-  if (wrongLettersEl.innerHTML.indexOf(letter) == -1) {
+function handleWrongLetter(letter) {
+  if (wrongLettersEl.innerHTML.indexOf(letter) === -1) {
     wrongLettersEl.innerHTML += wrongLettersEl.innerHTML ? `, ${letter}` : letter;
     let humanHiddenEls = document.querySelectorAll(".human.hidden");
     if (humanHiddenEls.length) {
       humanHiddenEls[0].classList.remove("hidden");
     } else {
-      score--;
-      document.querySelector(".score").innerHTML = score;
-      reloadAndStart();
+      setScore(--score);
+      loadNewWord();
     }
   } else {
-    axe("This letter has already been entered and it is not correct");
+    showAxe("This letter has already been entered and it is not correct");
   }
+}
+
+function setScore(score) {
+  document.querySelector(".score").innerHTML = score;
 }
 
 document.addEventListener("keydown", (e) => {
   // Если нажата клавиша с буквой
   if (e.code.slice(0, -1) == "Key") {
     // Если нажатая буква верная
-    if (currentWord.indexOf(e.key) != -1 && wordEl.textContent.indexOf(e.key) == -1) {
-
+    if (currentWord.indexOf(e.key) !== -1 && wordEl.textContent.indexOf(e.key) === -1) {
       let arr = [];
-      currentWord.filter((el, i) => {
+      currentWord.forEach((el, i) => {
         if (el == e.key) arr.push(i);
-      })
+      });
+
       arr.forEach((el) => {
-        numCorrectLetters++;
+        amountRightLetters++;
         wordEl.children[el].innerHTML = e.key;
       });
       // Если введены все буквы в слово
-      if (currentWord.length == numCorrectLetters) {
-        reloadAndStart();
-        score++;
-        document.querySelector(".score").innerHTML = score;
+      if (currentWord.length == amountRightLetters) {
+        loadNewWord();
+        setScore(++score);
       }
-    } else if (wordEl.textContent.indexOf(e.key) == -1) {
-      wrongLetter(e.key);
+    } else if (wordEl.textContent.indexOf(e.key) === -1) {
+      handleWrongLetter(e.key);
     } else {
-      axe("This letter has already been guessed");
+      showAxe("This letter has already been guessed");
     }
   }
   // Если нажата клавиша не с буквой
   else {
-    axe("It's not even a letter");
+    showAxe("It's not even a letter");
   }
 });
 
-function axe(text) {
-  if (!document.querySelector(".axe.active")) {
-    document.querySelector(".axe__text").innerHTML = text;
-    document.querySelector(".axe").classList.add("active");
+function showAxe(text) {
+  if (!axeEl.classList.contains('active')) {
+    document.querySelector("#axe__text").innerHTML = text;
+    axeEl.classList.add("active");
     setTimeout(() => {
-      document.querySelector(".axe").classList.remove("active");
-    }, 2000);
+      axeEl.classList.remove("active");
+    }, 100000);
   }
 }
